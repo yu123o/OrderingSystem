@@ -1,0 +1,78 @@
+<h3>{{'PageTitle.CustomersScreen' |translate}}</h3>
+<br />
+<div class="progress-spinner" *ngIf="ShowSpinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<div class="card" style="border: none;">
+
+    <form [formGroup]="formGroup">
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label htmlFor="username">{{'CustomersScreen.Name' | translate}}</label>
+                <input type="text" class="form-control" id="username" placeholder="" value="" required formControlName="Name"
+                    [(ngModel)]="searchCustomer.Name">
+                <div class="invalid-feedback">
+                    Valid first name is required.
+                </div>
+            </div>
+        
+            <div class="col-sm-3">
+                <label htmlFor="mobile">{{'CustomersScreen.Mobile1' | translate}}</label>
+                <input type="text" class="form-control" id="mobile" placeholder="" value="" required formControlName="Mobile"
+                    [(ngModel)]="searchCustomer.Mobile" max="10" pattern="[0-9 ]{10}" >
+                <div class="invalid-feedback">
+                    Valid first name is required.
+                </div>
+            </div>
+        </div>
+
+       <br>
+        <div class="row g-3">
+            <div class="col-sm-1">
+                <button  type="button" class="btn btn-primary"  (click)="ReturnCustomer()">{{'CustomersScreen.Search' | translate}}</button>
+            </div>
+            <div class="col-sm-2">
+                <button  type="button" class="btn btn-danger"  (click)="Reset()">{{'Reset' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+ 
+<div class="card" style="width: 81vw;">
+    <p-toolbar styleClass="mb-4 gap-2">
+
+        <ng-template pTemplate="left">
+            <button pButton pRipple [routerLink]="['/Systems/HomePage/AddCustomerInfo']" label="{{'Add'| translate}}"
+                icon="pi pi-plus" class="p-button-success mr-2"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table [totalRecords]="totalrows" [value]="returnCustomer" [paginator]="true" [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-sm" [lazy]="true" (onSort)="customSort($event)"
+        [customSort]="true" (onPage)="onPageChange($event)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let column of displayColumns" [pSortableColumn]="column">{{column | translate}}<p-sortIcon
+                        [field]="column" *ngIf="column!=''"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-returnCustomer>
+            <tr>
+                <td>{{ returnCustomer.Name }}</td>
+                <td>{{ returnCustomer.Mobile }}</td>
+                <td>{{ returnCustomer.Mobile2 }}</td>
+                <td>{{ returnCustomer.DeliveryName }}</td>
+                <td>{{ returnCustomer.DeliveryMobile }}</td>
+                <td>
+                    <!-- <p-button type="button" icon="pi pi-eye" styleClass="p-button-text"></p-button> -->
+                    <p-button type="button" icon="pi pi-pencil" styleClass="p-button-text"
+                        [routerLink]="['/Systems/HomePage/EditCustomerInfo/:' + returnCustomer.EntityID]"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+</div>
+<br />

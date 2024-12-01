@@ -1,0 +1,204 @@
+<h3>{{'PageTitle.RequestsScreen' |translate}}</h3>
+<br />
+<p-toast></p-toast>
+<div class="progress-spinner" *ngIf="ShowSpinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<div class="card" style="border: none;">
+    <form [formGroup]="formGroup">
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label htmlFor="username">{{'RequestsScreen.Name' | translate}}</label>
+                <input type="text" class="form-control" id="Name" placeholder="" value="" required
+                    formControlName="Name" [(ngModel)]="searchOrderMaster.Name">
+            </div>
+
+            <div class="col-sm-3">
+                <label htmlFor="mobile">{{'RequestsScreen.Mobile' | translate}}</label>
+                <input type="text" class="form-control" id="mobile" placeholder="" value="" required
+                    formControlName="Mobile" [(ngModel)]="searchOrderMaster.Mobile" max="10" pattern="[0-9 ]{10}">
+            </div>
+
+            <div class="col-sm-3">
+                <label htmlFor="mobile">{{'RequestsScreen.Status' | translate}}</label>
+                <select class="form-control" [(ngModel)]="searchOrderMaster.Status" formControlName="Status" id="Status"
+                    placeholder="Select a status">
+                    <option value="">Choose...</option>
+                    <option *ngFor="let s of status" [ngValue]="s.value">
+                        {{ s.label }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row g-3" >
+            <div class="col-sm-3">
+                <label htmlFor="username">{{'RequestsScreen.FromDate' | translate}}</label>
+                <p-calendar [(ngModel)]="searchOrderMaster.MinOrderDate" id="username" aria-describedby="username-help"
+                    formControlName="MinOrderDate" appendTo="body" ></p-calendar>
+            </div>
+
+            <div class="col-sm-3">
+                <label htmlFor="username">{{'RequestsScreen.ToDate' | translate}}</label>
+                <p-calendar id="username" aria-describedby="username-help" [(ngModel)]="searchOrderMaster.MaxOrderDate"
+                    formControlName="MaxOrderDate" appendTo="body" ></p-calendar>
+            </div>
+            <div class="col-sm-3">
+                <label htmlFor="username">{{'RequestsScreen.FromDeliveryDate' | translate}}</label>
+                        <p-calendar id="username" aria-describedby="username-help"
+                            [(ngModel)]="searchOrderMaster.MinAqusdByDlvry"
+                            formControlName="MinAqusdByDlvry"></p-calendar>
+            </div>
+
+            <div class="col-sm-3">
+                <label htmlFor="username">{{'RequestsScreen.FromDeliveryDate' | translate}}</label>
+                        <p-calendar id="username" aria-describedby="username-help"
+                            [(ngModel)]="searchOrderMaster.MaxAqusdByDlvry"
+                            formControlName="MaxAqusdByDlvry"></p-calendar>
+            </div>
+        </div>
+        <br />
+        <div class="row g-3">
+            <div class=" col-1 but">
+                <button  type="button" class="btn btn-primary"  (click)="ReturnOrderMaster()">{{'RequestsScreen.Search' | translate}}</button>
+            </div>
+            <div class=" col-2 but">
+                <button  type="button" class="btn btn-danger"  (click)="Reset()">{{'Reset' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+
+
+<div class="card" style="width: 81vw;">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="right">
+            <div class="flex">
+                <button type="button" pButton pRipple icon="pi pi-print" class="mr-2" pTooltip="CSV"
+                    tooltipPosition="bottom" (click)="PrintExcel()"></button>
+
+                <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning mr-2" pTooltip="PDF"
+                    tooltipPosition="bottom" (click)="PrintPDF()"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="left">
+            <!-- <button pButton pRipple label="{{'Add'| translate}}" icon="pi pi-plus"
+                class="p-button-success mr-2"></button> -->
+        </ng-template>
+    </p-toolbar>
+    <p-table [totalRecords]="totalrows" [value]="returnOrderMaster" [paginator]="true" [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-sm" [lazy]="true" (onSort)="customSort($event)"
+        [customSort]="true" (onPage)="onPageChange($event)">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th  *ngFor="let column of displayColumns" [pSortableColumn]="column">{{column | translate}}<p-sortIcon
+                        [field]="column" *ngIf="column!=''"></p-sortIcon></th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-returnOrderMaster>
+            <tr>
+                <td>
+                    <div class=" flex justify-content-center">
+                        <button pButton type="button" (click)="choosedId=returnOrderMaster.EntityID;menu.toggle($event)"
+                            icon="pi pi-ellipsis-v"
+                            style="background-color: transparent;color: blue; border-color: transparent;"></button>
+                    </div>
+
+                </td>
+                <td>{{ returnOrderMaster.EntityID }}</td>
+                <td>{{ returnOrderMaster.Name }}</td>
+                <td>{{ returnOrderMaster.Mobile }}</td>
+                <td>{{ returnOrderMaster.OrderDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ returnOrderMaster.ShipFees }}</td>
+                <td>{{ returnOrderMaster.ItemsCount }}</td>
+                <td>{{ returnOrderMaster.OrderTotal }}</td>
+                <td>{{ returnOrderMaster.AqusdByDlvry | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ returnOrderMaster.AqusdByDlvry | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ returnOrderMaster.DueDate | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ returnOrderMaster.ReceivedAmount }}</td>
+                <td>{{ returnOrderMaster.StatusText }}</td>
+
+               
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+</div>
+<p-menu #menu [model]="items" [popup]="true"></p-menu>
+
+<p-dialog header="{{'RequestsScreen.EditReceiptInformation' | translate}}" [modal]="true" [(visible)]="visible"
+    [draggable]="false" [resizable]="true" [style]="{width : '50vw',height:'30vw'}">
+    <div class="card" style="border: none;">
+        <form [formGroup]="formGroupDialog">
+            <div class="row">
+                <div class="md:flex-row " style="display: -webkit-inline-box;">
+                    <div class=" flex justify-content-center col-6">
+                        <div class="flex flex-column gap-2">
+                            <label htmlFor="username">{{'RequestsScreen.Status' | translate}}</label>
+                            <p-dropdown [(ngModel)]="saveOrderMaster.Status" formControlName="Status" [options]="status"
+                                [filter]="true" filterBy="label" id="username" aria-describedby="username-help"
+                                placeholder="Select a status" autoWidth="false" [style]="{'minWidth':'100%'}">
+                                <ng-template let-status pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                            [class]="'flag flag-' + status.value" style="width: 18px" />
+                                        <div>{{ status.label }}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class=" flex justify-content-center col-6">
+                        <div class="flex flex-column gap-2">
+                            <label htmlFor="username">{{'RequestsScreen.OrderDate' | translate}}</label>
+                            <p-calendar aria-describedby="username-help" [(ngModel)]="saveOrderMaster.OrderDate "
+                                formControlName="OrderDate" hidden></p-calendar>
+                            <input pInputText aria-describedby="username-help" type="date" id="username"
+                                aria-describedby="username-help" [(ngModel)]="saveOrderMaster.OrderDate "
+                                style="width:100%" formControlName="OrderDate"
+                                [value]="saveOrderMaster.OrderDate | date:'yyyy-MM-dd'" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="md:flex-row " style="display: -webkit-inline-box;">
+                    <div class=" flex justify-content-center col-6">
+                        <div class="flex flex-column gap-2">
+                            <label htmlFor="username">{{'RequestsScreen.AqusdByDlvry' | translate}}</label>
+                            <p-calendar aria-describedby="username-help" [(ngModel)]="saveOrderMaster.AqusdByDlvry"
+                                hidden formControlName="AqusdByDlvry"></p-calendar>
+                            <input pInputText aria-describedby="username-help" type="date" id="username"
+                                aria-describedby="username-help" [(ngModel)]="saveOrderMaster.AqusdByDlvry"
+                                style="width:100%" formControlName="AqusdByDlvry"
+                                [value]="saveOrderMaster.AqusdByDlvry | date:'yyyy-MM-dd'" />
+                        </div>
+                    </div>
+                    <div class=" flex justify-content-center col-6">
+                        <div class="flex flex-column gap-2">
+                            <label htmlFor="username">{{'RequestsScreen.RecievedAmount' | translate}}</label>
+                            <input pInputText id="username" aria-describedby="username-help" id="username"
+                                aria-describedby="username-help" [(ngModel)]="saveOrderMaster.ReceivedAmount"
+                                style="width:100%" formControlName="ReceivedAmount" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class=" col-1">
+                    <p-button [disabled]="this.formGroupDialog.invalid" (onClick)="SaveOrderMaster()">{{'Edit'
+                        | translate}}</p-button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</p-dialog>

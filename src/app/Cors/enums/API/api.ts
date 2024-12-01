@@ -1,0 +1,25 @@
+export enum API{
+    LogIn = "/api/Orders/LogIn",
+    SaveOrderMaster = "/api/Orders/SaveOrderMaster",
+    SaveOrderDetail = "/api/Orders/SaveOrderDetail",
+    SavePurchaseOrder = "/api/Orders/SavePurchaseOrder",
+    SavePurchaseOrderDetail = "/api/Orders/SavePurchaseOrderDetail",
+    SaveCustomer = "/api/Orders/SaveCustomer",
+    SaveLookupMaster = "/api/Orders/SaveLookupMaster",
+    SavelookUp = "/api/Orders/SavelookUp",
+    SavePreferenceGroup = "/api/Orders/SavePreferenceGroup",
+    SavePreference = "/api/Orders/SavePreference",
+    SaveAccount = "/api/Orders/SaveAccount",
+    SaveAccountPassword = "/api/Orders/SaveAccountPassword",
+    ReturnOrderMaster = "/api/Orders/ReturnOrderMaster",
+
+    ReturnOrderDetail = "/api/Orders/ReturnOrderDetail",
+    ReturnPurchaseOrder = "/api/Orders/ReturnPurchaseOrder",
+    ReturnPurchaseOrderDetail = "/api/Orders/ReturnPurchaseOrderDetail",
+    ReturnCustomer = "/api/Orders/ReturnCustomer",
+    ReturnlookUp = "/api/Orders/ReturnlookUp",
+    ReturnLookupMaster = "/api/Orders/ReturnLookupMaster",
+    ReturnPreferenceGroup = "/api/Orders/ReturnPreferenceGroup",
+    ReturnPreference = "/api/Orders/ReturnPreference",
+
+}

@@ -1,0 +1,131 @@
+<h3>{{'PageTitle.Dispatch' |translate}}</h3>
+<br />
+<div class="progress-spinner" *ngIf="ShowSpinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<p-toast></p-toast>
+<div class="card" style="border: none;">
+    <form [formGroup]="formGroup">
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label htmlFor="OrderNumberInShein">{{'RequestsScreen.OrderNumberInShein' | translate}}</label>
+                <input type="text" class="form-control" id="OrderNumberInShein" placeholder="" value="" required
+                    formControlName="PurchaseOrderNo" [(ngModel)]="searchOrderDetail.PurchaseOrderNo" (focus)="onFocus()" (blur)="onBlur()"
+                    (keyup.enter)="ReturnOrderDetails()">
+            </div>
+
+            <div class="col-sm-3" style="margin-top: 48px;">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                        (click)="searchOrderDetail.Dispatch=true;ReturnOrderDetails()" [value]="true"
+                        [(ngModel)]="searchOrderDetail.Dispatch" [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label" for="inlineRadio1">{{'RequestsScreen.Dispatched' |
+                        translate}}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                        (click)="searchOrderDetail.Dispatch=false;ReturnOrderDetails()" [value]="false"
+                        [(ngModel)]="searchOrderDetail.Dispatch" [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label" for="inlineRadio2">{{'RequestsScreen.AllDispatched' |
+                        translate}}</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+<div class="card" style="width: 81vw;">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="right">
+            <div class="flex">
+
+                <button pButton pRipple pTooltip="CSV" type="button" tooltipPosition="bottom" class="p-button-outlined"
+                    (click)="ReturnStatments();visible = true">{{'Dispatch.statements' | translate}}</button>
+
+            </div>
+        </ng-template>
+        <ng-template pTemplate="left">
+            <!-- <button pButton pRipple label="{{'Add'| translate}}" icon="pi pi-plus"
+                class="p-button-success mr-2"></button> -->
+        </ng-template>
+    </p-toolbar>
+    <p-table #dt [value]="returnOrderDetail" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-sm"
+        editMode="row" [globalFilterFields]="['SKU']">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input class="form-control" type="text" (input)="applyFilterGlobal($event, 'contains')"
+                        placeholder="Search SKU" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let column of DisplayColumns">{{column | translate}}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-returnOrderDetail let-editing="editing" let-ri="rowIndex">
+            <tr>
+                <td>{{returnOrderDetail.OrderNo}}</td>
+                <td>{{returnOrderDetail.CustomerNo}}</td>
+                <td>{{returnOrderDetail.Name}}</td>
+                <td>{{returnOrderDetail.OrderDate}}</td>
+                <td>{{returnOrderDetail.ItemCaption}}</td>
+                <td>{{returnOrderDetail.SKU}}</td>
+                <td>{{returnOrderDetail.Unit}}</td>
+                <td>{{returnOrderDetail.Price}}</td>
+                <td>{{returnOrderDetail.Cost}}</td>
+                <td>{{returnOrderDetail.PurchasePackageNo}}</td>
+                <td>{{returnOrderDetail.Dispatch}}</td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+</div>
+
+
+<br />
+<p-dialog header="{{'Dispatch.statements' | translate}}" [modal]="true" [(visible)]="visible" [draggable]="false"
+    [resizable]="true" [style]="{width : '70vw'}">
+    <div>
+        <div class="card" style="border: none;">
+
+            <p-table #dt [value]="returnStatment" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-sm"
+                editMode="row">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th *ngFor="let column of DisplayColumns">{{column | translate}}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-returnStatment let-editing="editing" let-ri="rowIndex">
+                    <tr>
+                        <td>{{returnStatment.OrderNo}}</td>
+                        <td>{{returnStatment.CustomerNo}}</td>
+                        <td>{{returnStatment.Name}}</td>
+                        <td>{{returnStatment.OrderDate}}</td>
+                        <td>{{returnStatment.ItemCaption}}</td>
+                        <td>{{returnStatment.SKU}}</td>
+                        <td>{{returnStatment.Unit}}</td>
+                        <td>{{returnStatment.Price}}</td>
+                        <td>{{returnStatment.Cost}}</td>
+                        <td>{{returnStatment.PurchasePackageNo}}</td>
+                        <td>{{returnStatment.Dispatch}}</td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+
+        </div>
+        <br />
+        <br />
+        <div>
+            <button type="button" class="btn btn-primary" (click)="SaveStatments()">{{'Add'|
+                translate}}</button>
+        </div>
+    </div>
+</p-dialog>

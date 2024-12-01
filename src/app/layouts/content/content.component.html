@@ -1,0 +1,61 @@
+<div class="content">
+    <p-toast></p-toast>
+    <!--Main Navigation-->
+    <header>
+        <!-- Navbar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <a class="navbar-brand" [routerLink]="['/Systems/HomePage']">
+                    <i class="bi bi-house"></i>
+                </a>
+
+                <ul class="navbar-nav  d-flex flex-row">
+
+                    <p-button label="AR" class="button" (click)="ar()" *ngIf="translate.currentLang == 'en'"></p-button>
+                    <p-button label="EN" class="button" (click)="en()" *ngIf="translate.currentLang == 'ar'"></p-button>
+                    <p-button label="{{'Logout' | translate}}" class="button" (click)="LogOut()" *ngIf="translate.currentLang == 'ar'"></p-button>
+                   
+                    <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
+                </ul>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <!-- Sidebar -->
+    <nav  id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+        <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-4">
+
+                <a class="list-group-item list-group-item-action py-2 ripple active" style="background: #22C55E;
+                border: 1px solid #22C55E;" [routerLink]="['/Systems/HomePage']" >
+                    <i class="bi bi-person-vcard"></i><span>{{'PageTitle.CustomersScreen' | translate}}</span>
+                </a>
+                <a class="list-group-item list-group-item-action py-2 ripple" [routerLink]="['/Systems/Orders']"><i
+                        class="bi bi-box2-heart"></i><span>{{'PageTitle.RequestsScreen' | translate}}</span></a>
+                <a class="list-group-item list-group-item-action py-2 ripple" [routerLink]="['/Systems/Dispatch']"><i
+                        class="bi bi-archive"></i><span>{{'PageTitle.SortingScreen' | translate}}</span></a>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+
+
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+
+</div>
+<main style="margin-top: 7vw; margin-right: 12vw;">
+    <div class="container-fluid pt-4">
+        <router-outlet></router-outlet>
+    </div>
+</main>

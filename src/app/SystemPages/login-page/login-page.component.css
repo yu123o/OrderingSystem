@@ -1,0 +1,11 @@
+.login100-form {
+    text-align: center;
+}
+
+[dir="rtl"] .symbol-input100{
+    right: 17vw !important;
+}
+.wrap-login100{
+        width: fit-content;
+    height: fit-content;
+}

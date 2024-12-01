@@ -1,0 +1,92 @@
+{
+    "dir": "ltr",
+    "MemberLogin": "Member Login",
+    "Email":"Email",
+    "password":"password",
+    "Login":"Login",
+    "LoginName": "Login Name",
+    "Reset":"Reset",
+    "Add":"Add",
+    "Back":"Back",
+    "Edit":"Edit",
+    "LogOut":"Logout",
+    "PageTitle":{
+        "CustomersScreen": "شاشة الزبائن",
+        "RequestsScreen":"شاشة الطلبات",
+        "SortingScreen":"شاشة الفرز",
+        "EditCustomerInfo":"تعديل معلومات الزبائن",
+        "AddCustomerInfo":"Add Customer Info"
+    },
+    "CustomersScreen":{
+        "Name": "Customer Name",
+        "Mobile":"Mobile",
+        "Search":"Search",
+        "Mobile1": "Mobile1",
+        "Mobile2": "Mobile2",
+        "RecipientName": "DeliveryName",
+        "DeliveryMobile": "Delivery Mobile",
+        "Address": "Address",
+        "Notes": "Notes",
+        "DeliveryFee": "Delivery Fee",
+        "JD": "JD",
+        "SearchByMobile":"Search By Mobile"
+    },
+    "RequestsScreen": {
+        "Name": "الإسم",
+        "Mobile": "رقم الهاتف",
+        "OrderDate": "تاريخ الطلبية",
+        "FromDate": "من تاريخ",
+        "ToDate": "الى تاريخ",
+        "DateOfDelivery": " تاريخ التسليم لشركة التوصيل",
+        "Status": "الحالة",
+        "Search": "بحث",
+        "OrderNumber": "رقم الطلبية",
+        "CustomerName": "اسم الزبون",
+        "ShipFees": "اجرة التوصيل",
+        "ItemsCount": "عدد القطع",
+        "OrderTotal":"المجموع (بالدينار)",
+        "PolicyDate":"تاريخ البوليصة",
+        "AqusdByDlvry":"تاريخ التوصيل للزبون",
+        "AmountRecieved":"المبلغ المقبوض من الزبون",
+        "RecievedAmount":"المبلغ المقبوض",
+        "SearchByPhone": "بحث برقم الهاتف",
+        "JD": "دينار",
+        "Notes": "ملاحظات",
+        "SheinAddress": "عنوان (URL) قائمة شي إن او عنوان القطعة",
+        
+        "Count":"العدد",
+        "PieceName":"اسم القطعة",
+        "SizeOrColor":"المقاس/ اللون",
+        "SKU":"SKU",
+        "Price": "السعر",
+        "DeliveryDateFromShein": "تاريخ الطلب من شي إن ",
+        "OrderNumberInShein": "رقم الطلبية لدى شي إن",
+        "Sorted": "تم الفرز",
+        "EditReceiptInformation" : "تعديل معلومات الإستلام",
+        "PrintLable":"طباعة Lable"
+    },
+    "Messages":{
+        "ConfirmMessage":"هل تريد اتمام العملية ؟",
+        "Confirmation":"Confirmation",
+        "Yes":"Yes",
+        "No":"No",
+        "Success":"تمت العملية بنجاح",
+        "Failed":"حدث خطأ في العملية",
+        "LoginFailed":"حدث خطأ في عملية تسجيل الدخول"
+
+    },
+    "Status":{
+        "Status1":"الحالة الاولى",
+        "Status2":"الحالة الثانية",
+        "Status3":"الحالة الثالثة",
+        "Status4":"الحالة الرابعة",
+        "Status5":"الحالة الخامسة",
+        "Status6":"الحالة السادسة",
+        "Status7":"الحالة السابعة",
+        "Status8":"الحالة الثامنة"
+    },
+    "Dispatch":{
+        "statements":"الكشوفات"
+    } 
+
+}

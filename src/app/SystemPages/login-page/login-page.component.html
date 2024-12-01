@@ -1,0 +1,55 @@
+<p-toast></p-toast>
+<div class="limiter" [dir]="'dir' | translate">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="login100-pic js-tilt" data-tilt>
+        <img src="/assets/images/img-01.png" alt="IMG">
+      </div>
+
+      <form [formGroup]="formGroup" class="login100-form validate-form">
+        <span class="login100-form-title">
+          {{ 'MemberLogin' | translate}}
+        </span>
+        <p-button label="AR" styleClass="p-button-info p-button-text" (click)="ar()" *ngIf="translate.currentLang == 'en'"></p-button>
+        <p-button label="EN" styleClass="p-button-info p-button-text" (click)="en()" *ngIf="translate.currentLang == 'ar'"></p-button>
+      
+        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+          <input pInputText class="input100" type="text" name="LoginName"
+          [(ngModel)]="login.LoginName" formControlName="LoginName" placeholder=" {{ 'LoginName' | translate }}">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Password is required">
+          <input pInputText class="input100" type="password" name="pass" placeholder=" {{ 'Password' | translate}}"
+          [(ngModel)]="login.Password" formControlName="Password">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="container-login100-form-btn">
+          <p-button class="login100-form-btn" [disabled]="formGroup.invalid"  (click)="Login()">
+            {{ 'Login' | translate}}
+          </p-button>
+        </div>
+
+        <!-- <div class="text-center p-t-12">
+          <span class="txt1">
+            Forgot
+          </span>
+          <a class="txt2" href="#">
+            Username / Password?
+          </a>
+        </div> -->
+
+       <br/>
+       <br/>
+       <br/>
+      </form>
+    </div>
+  </div>
+</div>

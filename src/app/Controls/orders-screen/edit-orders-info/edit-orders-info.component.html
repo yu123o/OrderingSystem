@@ -1,0 +1,197 @@
+<h3>{{'PageTitle.EditRequests' |translate}}</h3>
+<br />
+<p-toast></p-toast>
+<div class="progress-spinner" *ngIf="ShowSpinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<div class="card" style="border: none;">
+    <form [formGroup]="formGroup">
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label htmlFor="username">{{'RequestsScreen.Name' | translate}}</label>
+                <input type="text" class="form-control" id="Name" required
+                    formControlName="CustomerName" [(ngModel)]="returnOrderMaster.CustomerName">
+                    <div class="invalid-feedback">
+                        {{'CustomersScreen.Mobile1Required' | translate}}
+                    </div>
+            </div>
+
+            <div class="col-sm-3">
+                <label htmlFor="mobile">{{'RequestsScreen.Mobile' | translate}}</label>
+                <input type="text" class="form-control" id="mobile" placeholder="" value="" required
+                    formControlName="Mobile" [(ngModel)]="returnOrderMaster.Mobile" max="10" pattern="[0-9 ]{10}"
+                    maxlength="10">
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.Mobile1Required' | translate}}
+                </div>
+            </div>
+            
+            <div class="col-sm-1">
+                <button style="margin-top: 32px;" class="btn btn-primary bi bi-search" (click)="ReturnCustomerByMobile()" >
+                </button>
+            </div>
+ 
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-3">
+                <label htmlFor="username">{{'RequestsScreen.OrderNumber' | translate}}</label>
+                <input type="text" class="form-control" id="OrderNumber" 
+                    [(ngModel)]="returnOrderMaster.EntityID" formControlName="EntityID" />
+            </div>
+            <div class="col-sm-3">
+                <label htmlFor="username">{{'RequestsScreen.OrderDate' | translate}}</label>
+                        <p-calendar [(ngModel)]="returnOrderMaster.OrderDate" dateFormat="d/mm/yy"
+                            formControlName="OrderDate"></p-calendar>
+            </div>
+            <div class="col-sm-3">
+                <label htmlFor="username">{{'RequestsScreen.ShipFees' | translate}}</label>
+                        <input type="text" class="form-control" id="username" 
+                            [(ngModel)]="returnOrderMaster.ShipFees" formControlName="ShipFees" />
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label htmlFor="Notes">{{'RequestsScreen.Notes' | translate}}</label>
+                <textarea id="Notes" class="form-control rounded-0" rows="3"
+                required formControlName="Notes" [(ngModel)]="returnOrderMaster.Notes">
+                </textarea>
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.NotesRequired' | translate}}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label htmlFor="SheinAddress">{{'RequestsScreen.SheinAddress' | translate}}</label>
+                <textarea id="SheinAddress" class="form-control rounded-0" rows="3"
+                formControlName="StatusText" [(ngModel)]="returnOrderMaster.StatusText">
+                </textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+
+<div class="card" style="width: 81vw;">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <!-- <button pButton pRipple label="{{'Add'| translate}}" icon="pi pi-plus"
+                class="p-button-success mr-2"></button> -->
+        </ng-template>
+    </p-toolbar>
+    <p-table [value]="returnOrderDetail" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-sm" editMode="row" (onPage)="onPageChange($event)">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let column of DisplayColumns">{{column | translate}}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-returnOrderDetail let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="returnOrderDetail">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="number" [(ngModel)]="returnOrderDetail.Unit" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ returnOrderDetail.Unit }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                 <td> 
+                 <!--   <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="returnOrderDetail.ArabicName" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ returnOrderDetail.ArabicName }}
+                        </ng-template>
+                    </p-cellEditor> -->
+                    {{ returnOrderDetail.ArabicName }}
+                </td>
+
+                <td>
+                    <!-- <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="returnOrderDetail.ItemCaption" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ returnOrderDetail.ItemCaption }} </ng-template>
+                    </p-cellEditor> -->
+                    {{ returnOrderDetail.ItemCaption }}
+                </td>
+                <td>
+                    <!-- <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="returnOrderDetail.SKU" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ returnOrderDetail.SKU }} </ng-template>
+                    </p-cellEditor> -->
+                    {{ returnOrderDetail.ItemCaption }}
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="number" [(ngModel)]="returnOrderDetail.Price" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ returnOrderDetail.Price }} </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <!-- <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="returnOrderDetail.CustomerName" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ returnOrderDetail.CustomerName }} </ng-template>
+                    </p-cellEditor> -->
+                    {{ returnOrderDetail.CustomerName }}
+                </td>
+                <td>
+                    <!-- <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="returnOrderDetail.PhoneNumber1" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ returnOrderDetail.PhoneNumber1 }} </ng-template>
+                    </p-cellEditor> -->
+                    {{ returnOrderDetail.PhoneNumber1 }}
+                </td>
+                <td>
+                    <!-- <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="returnOrderDetail.PhoneNumber2" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ returnOrderDetail.PhoneNumber2 }} </ng-template>
+                    </p-cellEditor> -->
+                    {{ returnOrderDetail.PhoneNumber2 }}
+                </td>
+                <td style="width:100px;">
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                            (click)="onRowEditInit(returnOrderDetail)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                            (click)="onRowEditSave(returnOrderDetail)"
+                            class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                            (click)="onRowEditCancel(returnOrderDetail, ri)"
+                            class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-primary" (click)="SaveOrderMaster()">{{'Edit'|
+            translate}}</button>
+    </div>
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-secondary" [routerLink]="['/Systems/Orders']">{{'Back'|
+            translate}}</button>
+    </div>
+</div>
+<br>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

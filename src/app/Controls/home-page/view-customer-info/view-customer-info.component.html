@@ -1,0 +1,136 @@
+ 
+<h3>{{title |translate}}</h3>
+<br />
+<p-toast></p-toast>
+<div class="progress-spinner" *ngIf="ShowSpinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<div class="card" style="border: none;">
+ 
+    <form class="needs-validation" novalidate [formGroup]="formGroup">
+
+        <div class="row g-3">
+            <div class="col-sm-6"  *ngIf="AddButton">
+                <label htmlFor="username">{{'CustomersScreen.Name' | translate}}</label>
+                <input type="text" class="form-control" id="username" placeholder="" value="" required
+                    formControlName="Name" [(ngModel)]="saveCustomer.Name">
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.Name' | translate}}
+                </div>
+            </div>
+
+            <div class="col-sm-6" *ngIf="EditButton">
+                <label htmlFor="autocomplete">{{'CustomersScreen.Name' | translate}}</label>
+                <input type="text" (input)="search($event)" class="form-control" id="autocomplete" placeholder="" value="" required
+                    formControlName="Name" [(ngModel)]="saveCustomer.Name">
+                    <!-- <div id="myList"></div> -->
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.Name' | translate}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-3">
+                <label htmlFor="mobile">{{'CustomersScreen.Mobile1' | translate}}</label>
+                <input type="text" class="form-control" id="mobile" placeholder="" value="" required
+                    formControlName="Mobile" [(ngModel)]="saveCustomer.Mobile" max="10" pattern="[0-9 ]{10}"
+                    maxlength="10">
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.Mobile1Required' | translate}}
+                </div>
+            </div>
+            
+            <div class="col-sm-1">
+                <button style="margin-top: 32px;" class="btn btn-primary bi bi-search" (click)="ReturnCustomerByMobile()" 
+                    [disabled]="(this.formGroup.get('CustomerName')?.invalid  == true ? true : false) && (this.formGroup.get('PhoneNumber')?.invalid == true ? true : false)"></button>
+            </div>
+
+            <div class="col-sm-3">
+                <label htmlFor="mobile2">{{'CustomersScreen.Mobile2' | translate}}</label>
+                <input type="text" class="form-control" id="mobile2" placeholder="" value="" required
+                    formControlName="Mobile2" [(ngModel)]="saveCustomer.Mobile2" max="10" pattern="[0-9 ]{10}"
+                    maxlength="10">
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.Mobile2Required' | translate}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label htmlFor="username">{{'CustomersScreen.DeliveryName' | translate}}</label>
+                <input type="text" class="form-control" id="DeliveryName" placeholder="" value="" required
+                    formControlName="DeliveryName" [(ngModel)]="saveCustomer.DeliveryName">
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.DeliveryNameRequired' | translate}}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label htmlFor="mobile2">{{'CustomersScreen.DeliveryMobile' | translate}}</label>
+                <input type="text" class="form-control" id="DeliveryMobile" placeholder="" value="" required
+                    formControlName="DeliveryMobile" [(ngModel)]="saveCustomer.DeliveryMobile" max="10" pattern="[0-9 ]{10}"
+                    maxlength="10">
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.DeliveryMobileRequired' | translate}}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label htmlFor="DeliveryFees">{{'CustomersScreen.DeliveryFee' | translate}} / {{'CustomersScreen.JD' | translate}}</label>
+                <input type="text" class="form-control" id="DeliveryFees" placeholder="" value="" required
+                    formControlName="DeliveryFees" [(ngModel)]="saveCustomer.DeliveryFees" max="10" pattern="[1-9]\d*"
+                    maxlength="10">
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.DeliveryFeeRequired' | translate}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label htmlFor="Address">{{'CustomersScreen.Address' | translate}}</label>
+                <textarea id="Address" class="form-control rounded-0" rows="3"
+                required formControlName="Address" [(ngModel)]="saveCustomer.Address">
+                </textarea>
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.AddressRequired' | translate}}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label htmlFor="Notes">{{'CustomersScreen.Notes' | translate}}</label>
+                <textarea id="Notes" class="form-control rounded-0" rows="3"
+                required formControlName="Notes" [(ngModel)]="saveCustomer.Notes">
+                </textarea>
+                <div class="invalid-feedback">
+                    {{'CustomersScreen.NotesRequired' | translate}}
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row g-3">
+            <div class="col-sm-1">
+                <ng-container *ngIf="formGroup.valid; then trueBlock else falseBlock"></ng-container>
+                <!-- Template content -->
+                <ng-template #trueBlock>
+                    <button type="button" class="btn btn-primary" (click)="SaveCustomer()" *ngIf="AddButton" >{{'Add'|
+                        translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="SaveCustomer()" *ngIf="EditButton">{{'Edit'|
+                        translate}}</button>
+                </ng-template>
+                <!-- Template content -->
+                <ng-template #falseBlock>
+                    <button type="submit" class="btn btn-primary" *ngIf="AddButton">{{'Add'|
+                        translate}}</button>
+                    <button type="submit" class="btn btn-primary" *ngIf="EditButton">{{'Edit'|
+                        translate}}</button>
+                </ng-template>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-secondary" [routerLink]="['/Systems/HomePage']">{{'Back'|
+                    translate}}</button>
+            </div>
+        </div>   
+    </form>
+</div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
